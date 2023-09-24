@@ -19,11 +19,18 @@ Antes de usar este sistema de backup, certifique-se de ter o Dart instalado em s
 
    ```shell
    git clone https://github.com/seu-usuario/sistema-de-backup-dart.git
+   ```
 
 2. **Uso**
 
-Execute o aplicativo de backup para iniciar o processo de cópia de segurança:
+   Execute o aplicativo de backup para iniciar o processo de cópia de segurança:
 
-```shell
-dart backup.dart
+   ```shell
+   dart backup.dart
+   ```
 
+## Colaboradores
+
+- [João Victor](https://github.com/JotaveX)
+- [Eduarda Vaz](https://github.com/eduardamaganino)
+- [Arthur Marcelo](https://github.com/ArthurNobuntu)
