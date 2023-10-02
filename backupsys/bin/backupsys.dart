@@ -1,24 +1,26 @@
+import 'dart:io';
+import 'package:shelf/shelf.dart';
+import 'package:shelf/shelf_io.dart' as io;
 import 'package:backupsys/backupsys.dart' as backupsys;
 
-void main(List<String> arguments) {
-  final sourceDir = Directory('D:\\jvpil\\Download navega\\');
-  final destDir = Directory('C:/Users/jvpil/OneDrive/Documentos/Github/BackupSys/backup/');
 
-  if (!sourceDir.existsSync()) {
-    print('O diretório ${sourceDir} de origem não existe.');
-    return;
+void main() async {
+  final handler = const Pipeline()
+      .addMiddleware(logRequests())
+      .addHandler(_handleRequest);
+
+  final server = await io.serve(handler, InternetAddress.anyIPv4, 8080);
+  print('Listening on ${server.address}:${server.port}');
+}
+
+Future<Response> _handleRequest(Request request) async {
+  if (request.method == 'GET') {
+      List<String> res = backupsys.getAllDirectory(Directory('C:\\Users\\jvpil\\OneDrive\\Documentos\\Github\\BackupSys\\backup'), request);
+      return Response.ok(res.toString());
+  } else if (request.method == 'POST') {
+    final body = await request.readAsString();
+    return Response.ok('Received POST request with body: $body');
+  } else {
+    return Response.notFound('Not found');
   }
-
-  if (!sourceDir.statSync().modeString().contains('r')) {
-    print('Sem permissão de leitura para o diretório de origem.');
-    return;
-  }
-
-  if (!destDir.existsSync()) {
-    destDir.createSync(recursive: true);
-  }
-
-  backupsys.copyDirectory(sourceDir, destDir);
-
-  print('Backup realizado com sucesso.');
 }
