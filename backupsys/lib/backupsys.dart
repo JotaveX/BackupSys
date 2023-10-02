@@ -29,13 +29,17 @@ List<String> getAllDirectory(Directory destination, Request request) {
 }
 
 void delete(){
-  print('delete')
+  print('delete');
 }
 
 void getOne(){
-  print('getOne')
+  print('getOne');
 }
 
 void update(){
-  print('update')
+  print('update');
+}
+
+void upload(String destination){
+  print('upload');
 }
